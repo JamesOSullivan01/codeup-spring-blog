@@ -20,5 +20,11 @@ public class MathContoller {
                         @PathVariable int second_number) {
         return second_number - first_number;
     }
+    @GetMapping("/multiply/{first_number}/and/{second_number}")
+    @ResponseBody
+    public int multiplication(@PathVariable int first_number,
+                        @PathVariable int second_number) {
+        return second_number * first_number;
+    }
 
 }
