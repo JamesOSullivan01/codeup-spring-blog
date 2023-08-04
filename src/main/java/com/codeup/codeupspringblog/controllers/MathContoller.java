@@ -26,5 +26,11 @@ public class MathContoller {
                         @PathVariable int second_number) {
         return second_number * first_number;
     }
+    @GetMapping("/divide/{first_number}/by/{second_number}")
+    @ResponseBody
+    public int division(@PathVariable int first_number,
+                        @PathVariable int second_number) {
+        return first_number / second_number;
+    }
 
 }
