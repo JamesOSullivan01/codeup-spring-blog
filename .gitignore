@@ -32,4 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-application.properites!/src/main/resources
+application.properites
