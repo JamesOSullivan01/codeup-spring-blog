@@ -18,7 +18,7 @@ public class MathContoller {
     @ResponseBody
     public int subtraction(@PathVariable int first_number,
                         @PathVariable int second_number) {
-        return first_number + second_number;
+        return second_number - first_number;
     }
 
 }
