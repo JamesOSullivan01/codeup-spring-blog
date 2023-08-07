@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Roll Dice Result</title>
+</head>
+<body>
+<div th:insert="~{NavBar :: NavBar}">...</div>
+
+<p th:if="${guess != null}">
+  Your guess: <span th:text="${guess}"></span><br />
+  Random number: <span th:text="${randomNumber}"></span><br />
+  <span th:if="${isCorrect}">Congratulations! Your guess is correct!</span>
+  <span th:unless="${isCorrect}">Sorry, your guess is incorrect.</span>
+</p>
+
+<div th:insert="~{footer :: footer}">...</div>
+
+
+</body>
+</html>
