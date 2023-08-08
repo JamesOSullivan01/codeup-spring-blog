@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:insert="~{NavBar :: NavBar}">...</div>
-
+// Grabbing the data from RollDiceController to populate these variables.
 <p th:if="${guess != null}">
   Your guess: <span th:text="${guess}"></span><br />
   Random number: <span th:text="${randomNumber}"></span><br />

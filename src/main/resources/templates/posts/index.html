@@ -5,10 +5,11 @@
     <title>Posts</title>
 </head>
 <body>
-<h1>Title</h1>
+<h1>Look at your posts!</h1>
 <div th:each="post : ${posts}">
+    <h2>Post</h2>
     <p th:text="${post.title}" />
-    <p th:text="${post.body}" />
+    <p th:text="${post.body}" /><br>
 </div>
 
 </body>
