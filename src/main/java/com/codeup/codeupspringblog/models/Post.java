@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 
 import jakarta.persistence.Entity;
 
-// Model
+// Model..These build out the tables in DB
 @Entity
 @Table(name="posts")
 public class Post {
@@ -16,7 +16,17 @@ public class Post {
     @Column(nullable = false, length = 1000)
     private String body;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn (name = "user_id")
+    private User user;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Post(String title, String body) {
         this.title = title;
@@ -27,6 +37,12 @@ public class Post {
         this.title = title;
         this.body = body;
         this.id = id;
+    }
+
+    public Post(String title, String body, User user) {
+        this.title = title;
+        this.body = body;
+        this.user = user;
     }
 
     public Post() {

@@ -7,12 +7,12 @@
 <body>
 
     <div>
-        <form action="/posts/create" method="post" th:object="${post}">
+        <form action="/posts/create" method="post">
             <h3><label for="title">Post Title</label><br></h3>
-            <input type="text" id="title" name="title" th:field="*{title}"><br>
+            <input type="text" id="title" name="title"><br>
 
             <h3><label for="body">Post description</label><br></h3>
-            <textarea type="text" id="body" name="body" th:field="*{body}"></textarea><br>
+            <textarea type="text" id="body" name="body"></textarea><br>
 
             <button type="submit">Create Post</button>
         </form>
