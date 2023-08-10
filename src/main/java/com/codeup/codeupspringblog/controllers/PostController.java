@@ -5,10 +5,7 @@ import com.codeup.codeupspringblog.repositories.PostRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
@@ -55,20 +52,48 @@ public class PostController {
         //We have to use this to create an empty post to bind to the form data
 //            Post post = new Post();
 //            postDao.save(post);
-//            model.addAttribute("post", post);
+            model.addAttribute("post", new Post());
 
         return "posts/create";
         }
 
         @PostMapping("/posts/create")
-    public String postPost(@RequestParam String title, @RequestParam String body) {
+    public String postPost(@ModelAttribute Post post) {
             User user = userDao.findUserById(1);
 
-            Post post = new Post(title, body, user);
+            Post newPost = new Post(post.getTitle(), post.getBody(), user);
 
 
-        postDao.save(post);
+        postDao.save(newPost);
 
         return "redirect:/posts";
         }
+
+    @GetMapping("/posts/edit/{id}")
+    public String createEdit(@PathVariable long id, Model model) {
+        Optional<Post> optionalPost = Optional.ofNullable(postDao.findById(id));
+
+        if (optionalPost.isPresent()) {
+            Post post = optionalPost.get();
+            model.addAttribute("post", post);
+            return "posts/edit";
+        } else {
+            // Handle the case where the post is not found
+            // You might redirect or show an error message
+            return "redirect:/posts"; // For example, redirect back to the posts list
+        }
+    }
+
+    @PostMapping("/posts/edit/{id}")
+    public String editPost(@ModelAttribute Post editedPost){
+        Post existingPost = postDao.findById(editedPost.getId()).orElseThrow(() -> new IllegalArgumentException("Post not found"));
+        existingPost.setTitle(editedPost.getTitle());
+        existingPost.setBody(editedPost.getBody());
+
+        postDao.save(existingPost);
+
+        return "redirect:/posts";
+    }
+
+
 }

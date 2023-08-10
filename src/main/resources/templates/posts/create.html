@@ -2,17 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Create a post</title>
 </head>
 <body>
 
     <div>
-        <form action="/posts/create" method="post">
+        <form action="/posts/create" method="post" th:object="${post}">
             <h3><label for="title">Post Title</label><br></h3>
-            <input type="text" id="title" name="title"><br>
+            <input type="text" id="title" th:field="*{title}" /><br>
 
             <h3><label for="body">Post description</label><br></h3>
-            <textarea type="text" id="body" name="body"></textarea><br>
+            <textarea type="text" id="body" th:field="*{body}"></textarea><br>
 
             <button type="submit">Create Post</button>
         </form>
