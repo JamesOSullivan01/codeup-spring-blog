@@ -15,10 +15,15 @@ public class User {
 
     @Column(nullable = false, unique = true)
     private String username;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
     @Column
     private String password;
+
+    // DEFINE THE USER - POST RELATIONSHIP IE: ONE USER CAN HAVE MANY POSTS
+    // DON'T FORGET TO ADD GETTER AND SETTERS FOR THE "POSTS' FIELD WE CREATED HERE
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    private List<Post> posts;
 
     public User() {
     }
@@ -27,6 +32,13 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public User(User copy) {
+        id = copy.id; // This line is SUPER important! Many things won't work if it's absent
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
     }
 
     public User(String username, String email, String password, List<Post> posts) {
@@ -44,10 +56,7 @@ public class User {
         this.posts = posts;
     }
 
-    // DEFINE THE USER - POST RELATIONSHIP IE: ONE USER CAN HAVE MANY POSTS
-    // DON'T FORGET TO ADD GETTER AND SETTERS FOR THE "POSTS' FIELD WE CREATED HERE
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
-    private List<Post> posts;
+
 
     public long getId() {
         return id;

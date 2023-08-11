@@ -3,6 +3,8 @@ import com.codeup.codeupspringblog.models.Post;
 import com.codeup.codeupspringblog.models.User;
 import com.codeup.codeupspringblog.repositories.PostRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
+import com.codeup.codeupspringblog.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,17 +16,22 @@ import java.util.Optional;
 @Controller
 public class PostController {
 
+    private final EmailService emailService;
     private final PostRepository postDao;
 
     private final UserRepository userDao;
 
-    public PostController(PostRepository postDao, UserRepository userDao) {
+//    public PostController(PostRepository postDao, UserRepository userDao) {
+//        this.postDao = postDao;
+//        this.userDao = userDao;
+//    }
+
+
+    public PostController(EmailService emailService, PostRepository postDao, UserRepository userDao) {
+        this.emailService = emailService;
         this.postDao = postDao;
         this.userDao = userDao;
     }
-
-
-
 
     @GetMapping("/posts")
 //    @ResponseBody
@@ -59,13 +66,14 @@ public class PostController {
 
         @PostMapping("/posts/create")
     public String postPost(@ModelAttribute Post post) {
-            User user = userDao.findUserById(1);
-
-            Post newPost = new Post(post.getTitle(), post.getBody(), user);
-
-
-        postDao.save(newPost);
-
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if(user == null){
+                System.out.println("User is null");
+            }else {
+                post.setUser(user);
+                postDao.save(post);
+                emailService.prepareAndSend(post, post.getTitle(), post.getBody());
+            }
         return "redirect:/posts";
         }
 
