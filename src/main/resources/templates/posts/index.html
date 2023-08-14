@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Posts</title>
-</head>
+<html data-bs-theme="light" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/partials :: head ('Welcome!')"></head>
+<nav th:replace="partials/partials :: navbar"></nav>
 <body>
-<h1>Look at your posts!</h1>
-<div th:each="post : ${posts}">
-    <h2>Post</h2>
-    <p th:text="${post.title}" />
+<!--<header class="container">-->
+<!--    <h1 class="text-center mt-5 display-1">Welcome to Bloglandia!</h1>-->
+<!--</header>-->
+<h1 class="mb-5">Welcome to the blog posts page!</h1>
+<div class="border my-5" th:each="post : ${posts}">
+    <h3 th:text="${post.title}"></h3>
     <p th:text="${post.body}" /><br>
+    <button class="btn btn-secondary">
+        <a class="nav-link" th:href="@{/posts/show/{id}(id=${post.id})}">View Post</a>
+    </button>
+
 </div>
+
+
+
+<footer th:replace="partials/partials :: footer"></footer>
+
 
 </body>
 </html>

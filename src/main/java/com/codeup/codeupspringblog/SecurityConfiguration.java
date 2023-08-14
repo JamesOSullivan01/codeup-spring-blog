@@ -38,14 +38,14 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests((requests) -> requests
                         /* Pages that require authentication
                          * only authenticated users can create and edit ads */
+                        .requestMatchers("/posts/create", "/posts/edit/*").authenticated()
 
                         /* Pages that do not require authentication
                          * anyone can visit the home page, register, login, and view ads */
-                        .requestMatchers("/", "/posts", "/posts/*", "/sign-up", "/login").permitAll()
+                        .requestMatchers("/", "/posts", "/posts/*", "/sign-up", "/login", "/posts/index", "/posts/show", "/posts/show/*").permitAll()
 
                         // allow loading of static resources
                         .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                        .requestMatchers("/posts/create", "/posts/edit/*").authenticated()
                 )
                 /* Login configuration */
                 .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/posts"))

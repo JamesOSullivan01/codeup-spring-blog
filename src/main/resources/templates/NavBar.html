@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
 <head>
   <title>Some title</title>
   <meta charset="UTF-8" />
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="NavBar">
+
+
+
+  <nav class="navbar navbar-inverse navbar-fixed-top" th:fragment="NavBar">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
@@ -15,6 +19,13 @@
       </button>
       <a class="navbar-brand" href="#">My project</a>
     </div>
+    <ul>
+      <li>
+        <form th:action="@{/logout}" th:method="post">
+          <button class="btn-link btn" style="margin-top: 8px">Logout</button>
+        </form>
+      </li>
+    </ul>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li th:classappend="${module == 'home' ? 'active' : ''}">
@@ -26,6 +37,8 @@
       </ul>
     </div>
   </div>
-</div>
+  </nav>
+
+
 </body>
 </html>

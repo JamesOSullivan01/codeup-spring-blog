@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="partials/partials :: head ('Welcome!')">
     <meta charset="UTF-8">
-    <title>Create a post</title>
 </head>
+<nav th:replace="partials/partials :: navbar"></nav>
 <body>
 
     <div>
@@ -17,6 +17,7 @@
             <button type="submit">Create Post</button>
         </form>
     </div>
+    <footer th:replace="partials/partials :: footer"></footer>
 
 </body>
 </html>
